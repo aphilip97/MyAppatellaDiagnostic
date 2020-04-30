@@ -1,0 +1,160 @@
+---
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.2.0"
+  title: "AppatellaExampleFunctions"
+  contact:
+    name: "your name"
+    email: "yourname@yourcompany.com"
+host: "localhost:8010" #local debug
+# host: "appatelladiagnostic.herokuapp.com" # production deployment
+basePath: "/functions"
+tags:
+- name: "Default"
+  description: "Default section"
+- name: "diagnostics"
+  description: "diagnostics functions"
+schemes:
+- "http" # local debug
+# - "https" # production deployment
+paths:
+  /example/:
+    get:
+      tags:
+      - "diagnostics"
+      description: "returns the name-value pairs which should be uploaded to the diagnostic,\
+        \ in the POST."
+      operationId: "getExample"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "version"
+        in: "query"
+        description: "The version of the function which you want to return parameters\
+          \ for leave this parameter out, if you want to get a list of all versions.\
+          \ use 'default' to get the default version."
+        required: false
+        type: "string"
+        x-example: "1.1.1"
+      responses:
+        200:
+          description: "Documents the parameters and responses of the algorithms presently\
+            \ supported"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Version"
+        400:
+          description: "Unknown options"
+        401:
+          description: "No valid token was supplied"
+        404:
+          description: "The algorithm requested was not found"
+      security:
+      - HTTP_BASIC: []
+      x-swagger-router-controller: "Diagnostics"
+    post:
+      tags:
+      - "diagnostics"
+      description: "POSTs a set of parameters, as name-value pairs, to the application"
+      operationId: "postExample"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "version"
+        in: "query"
+        description: "A string representing the version of the function you want to\
+          \ post to.\nUse standard Major.Minor.Build notation. Leave parameter out\
+          \ if you want to access the latest version."
+        required: false
+        type: "string"
+        x-example: "1.1.1"
+      - in: "body"
+        name: "body"
+        required: false
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/NameValuePair"
+      responses:
+        200:
+          description: "A set of name-value pairs representing the output of the algorithm"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/NameValuePair"
+        400:
+          description: ""
+        401:
+          description: "Status 401"
+        404:
+          description: "Status 404"
+      security:
+      - HTTP_BASIC: []
+      x-swagger-router-controller: "Diagnostics"
+securityDefinitions:
+  HTTP_BASIC:
+    type: "basic"
+definitions:
+  NameValuePair:
+    type: "object"
+    required:
+    - "name"
+    - "value"
+    properties:
+      name:
+        type: "string"
+        example: "sample name"
+        description: "The name of the parameter"
+      value:
+        $ref: "#/definitions/Value"
+      description:
+        type: "string"
+        example: "The distance from the back of the heel, to the wall, on which the\
+          \ patient is leaning."
+        description: "A description of the parameter."
+    description: ""
+    example: ""
+  Value:
+    type: "object"
+    required:
+    - "content"
+    properties:
+      type:
+        type: "integer"
+        format: "int32"
+        example: 1
+        description: "The type of value according to:\n0: Integer\n1: Float\n2: String"
+      content:
+        type: "string"
+        example: "24.5"
+        description: "The actual value"
+    description: ""
+    example: ""
+  Version:
+    type: "object"
+    required:
+    - "parameters"
+    - "returns"
+    - "version"
+    properties:
+      version:
+        type: "string"
+        example: "1.1.1"
+        description: "The version of the function, requiring these parameters"
+      parameters:
+        type: "array"
+        description: "A list of the parameters required for this function"
+        items:
+          $ref: "#/definitions/NameValuePair"
+      returns:
+        type: "array"
+        description: "A list of name value pairs which can be expected from this function"
+        items:
+          $ref: "#/definitions/NameValuePair"
+    description: "Represents the parameter and response set which can be expected\
+      \ for a particular version of the function"
+    example: ""

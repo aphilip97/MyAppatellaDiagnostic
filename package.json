@@ -1,0 +1,21 @@
+{
+  "name": "appatella-functions",
+  "version": "1.2.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "clone": "^2.1.0",
+    "connect": "^3.6.0",
+    "js-yaml": "^3.8.2",
+    "swagger-tools": "^0.10.1"
+  }
+}
