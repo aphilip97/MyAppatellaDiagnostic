@@ -14,7 +14,7 @@ var mappings = {
   v0_0_1: {
     version: "0.0.1",
 
-    parameters: [
+    parameter_mappings: [
       {
         name: "param_1_fp",
         value: {
@@ -37,14 +37,15 @@ var mappings = {
       }
 
     ],
-    returns: [{
-      name: "result_1_fp",
-      value: {
-        content: "20.0",
-        type: 2
-      },
-      description: "An example floating-point result"
-    }
+    return_mappings: [
+      {
+        name: "result_1_fp",
+        value: {
+          content: "20.0",
+          type: 2
+        },
+        description: "An example floating-point result"
+      }
     ],
     function: example_0_0_1
   }
@@ -84,8 +85,8 @@ var sanitiseMapping = function (mapping) {
   if (mapping) {
     result = {};
     result.version = mapping.version;
-    result.parameters = mapping.parameters;
-    result.returns = mapping.returns;
+    result.parameter_mappings = mapping.parameter_mappings;
+    result.return_mappings = mapping.return_mappings;
   }
   return result;
 }
@@ -95,8 +96,8 @@ var functionaliseMapping = function (mapping) {
   if (mapping) {
     result = {};
     result.version = mapping.version;
-    result.parameters = mapping.parameters;
-    result.returns = mapping.returns;
+    result.parameter_mappings = mapping.parameter_mappings;
+    result.return_mappings = mapping.return_mappings;
     result.function = mapping.function;
   }
   return result;

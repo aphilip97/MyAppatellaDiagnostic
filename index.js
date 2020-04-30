@@ -1,10 +1,13 @@
 'use strict';
 
 var app = require('connect')();
+var cors = require('cors');
 var http = require('http');
 var swaggerTools = require('swagger-tools');
 var jsyaml = require('js-yaml');
 var fs = require('fs');
+
+app.use(cors());
 
 var serverPort = process.env.PORT || 8010
 //var serverPort = 443; // CHANGEME
