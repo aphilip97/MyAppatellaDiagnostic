@@ -7,8 +7,8 @@ info:
   contact:
     name: "your name"
     email: "yourname@yourcompany.com"
-host: "localhost:8010" #local debug
-# host: "appatelladiagnostic.herokuapp.com" # production deployment
+# host: "localhost:8010" #local debug
+host: "notprognosis.herokuapp.com" # production deployment
 basePath: "/functions"
 tags:
 - name: "Default"
@@ -16,8 +16,8 @@ tags:
 - name: "diagnostics"
   description: "diagnostics functions"
 schemes:
-- "http" # local debug
-# - "https" # production deployment
+# - "http" # local debug
+- "https" # production deployment
 paths:
   /example/:
     get:
